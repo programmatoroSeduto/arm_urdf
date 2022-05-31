@@ -26,10 +26,37 @@ THe robot also supports some other functionalities such as laser scan and others
 
 ## Inspect the model
 
--- 
+Here are the steps to check the structure and the syntax of the model:
+
+1. go inside the folder *urdf* in the package, and open up a shell from there
+
+2. build the URDF file from XACRO; you can use these commands here:
+	
+	```
+	roscore &
+	
+	rosrun xacro xacro main.xacro -o model.urdf
+	```
+
+3. for checking the structure of the robot on the console, run this: 
+	
+	```
+	check_urdf model.urdf
+	```
+	
+	a text screen showing the structure of the robot should appear. Otherwise, the program will complain with some syntax error. 
+
+4. (optional) build a graph from the model by the command
+	
+	```
+	urdf_to_graphiz model.urdf
+	# firefox ./model.pdf
+	```
 
 ## Visualize the model in Gazebo
 
 --
 
 # Structure of the model
+
+--

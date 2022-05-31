@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<robot name="m2wr" xmlns:xacro="https://www.ros.org/wiki/xacro" >
+
+<transmission name="arm_joint_01_trans">
+	<type>transmission_interface/SimpleTransmission</type>
+	<joint name="arm_joint_01">
+		<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+	</joint>
+	<actuator name="motor1">
+		<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		<mechanicalInterface>1</mechanicalInterface>
+	</actuator>
+</transmission>
+
+<transmission name="arm_joint_02_trans">
+	<type>transmission_interface/SimpleTransmission</type>
+	<joint name="arm_joint_02">
+		<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+	</joint>
+	<actuator name="motor2">
+		<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		<mechanicalInterface>1</mechanicalInterface>
+	</actuator>
+</transmission>
+
+<transmission name="arm_joint_03_trans">
+	<type>transmission_interface/SimpleTransmission</type>
+	<joint name="arm_joint_03">
+		<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+	</joint>
+	<actuator name="motor3">
+		<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		<mechanicalInterface>1</mechanicalInterface>
+	</actuator>
+</transmission>
+
+<transmission name="arm_joint_04_trans">
+	<type>transmission_interface/SimpleTransmission</type>
+	<joint name="arm_joint_04">
+		<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+	</joint>
+	<actuator name="motor4">
+		<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		<mechanicalInterface>1</mechanicalInterface>
+	</actuator>
+</transmission>
+
+<transmission name="left_grip_trans">
+	<type>transmission_interface/SimpleTransmission</type>
+	<joint name="left_grip_joint">
+		<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+	</joint>
+	<actuator name="motor5">
+		<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		<mechanicalInterface>1</mechanicalInterface>
+	</actuator>
+</transmission>
+
+<transmission name="right_grip_trans">
+	<type>transmission_interface/SimpleTransmission</type>
+	<joint name="right_grip_joint">
+		<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+	</joint>
+	<actuator name="motor6">
+		<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		<mechanicalInterface>1</mechanicalInterface>
+	</actuator>
+</transmission>
+
+</robot>

@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<robot name="robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+	
+<!-- import -->
+<xacro:include filename="macros.xacro"/>
+<xacro:include filename="params.xacro"/>
+<xacro:include filename="materials.xacro"/>
+<xacro:include filename="gazebo.gazebo"/>
+<xacro:include filename="transmission.xacro"/>
+
+<!-- dummy link -->
+<link name="root_link">
+	<origin xyz="0 0 0" rpy="0 0 0"/>
+</link>
+
+<!-- robot chassis -->
+<joint name="root_joint" type="fixed">
+	<parent link="root_link"/>
+	<child  link="base_link"/>
+	<origin xyz="0 0 0" rpy="0 0 0"/>
+</joint>
+<xacro:include filename="chassis.xacro"></xacro:include>
+
+<!-- robot manipulator -->
+<joint name="arm_base_to_base" type="fixed">
+	<parent link="base_link"/>
+	<child  link="arm_base_link"/>
+	<origin xyz="0 0 0" rpy="0 0 0"/>
+</joint>
+<xacro:include filename="arm.xacro"></xacro:include>
+
+</robot>
