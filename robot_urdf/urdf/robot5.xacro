@@ -1,0 +1,209 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robot5_xacro">
+<xacro:include filename="$(find robot_urdf)/urdf/robot5.gazebo"/>
+					
+	<xacro:property name="length_wheel" value="0.04" />
+	<xacro:property name="radius_wheel" value="0.1" />
+
+	<xacro:macro name="default_inertial" params="mass">
+               <inertial>
+                       <mass value="${mass}" />
+                       <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+                       <inertia ixx="0.000526666666667" ixy="0" ixz="0" iyy="0.000526666666667" iyz="0" izz="0.001"/>
+               </inertial>
+	</xacro:macro>
+
+    <xacro:macro name="wheel_geometry">
+		<geometry>
+       			<cylinder length="${length_wheel}" radius="${radius_wheel}"/>
+     	</geometry>
+	</xacro:macro>
+	
+	
+  <material name="black">
+    <color rgba="0.0 0.0 0.0 1.0"/>
+  </material>
+  <material name="blue">
+    <color rgba="0.203125 0.23828125 0.28515625 1.0"/>
+  </material>
+  <material name="green">
+    <color rgba="0.0 0.8 0.0 1.0"/>
+  </material>
+  <material name="grey">
+    <color rgba="0.2 0.2 0.2 1.0"/>
+  </material>
+  <material name="orange">
+    <color rgba="1.0 0.423529411765 0.0392156862745 1.0"/>
+  </material>
+  <material name="brown">
+    <color rgba="0.870588235294 0.811764705882 0.764705882353 1.0"/>
+  </material>
+  <material name="red">
+    <color rgba="0.80078125 0.12890625 0.1328125 1.0"/>
+  </material>
+  <material name="white">
+    <color rgba="1.0 1.0 1.0 1.0"/>
+  </material>
+
+	  <link name="link_chassis">
+    <!-- pose and inertial -->
+    <pose>0 0 0.1 0 0 0</pose>
+    <inertial>
+      <mass value="5"/>
+      <origin rpy="0 0 0" xyz="0 0 0.1"/>
+      <inertia ixx="0.0395416666667" ixy="0" ixz="0" iyy="0.106208333333" iyz="0" izz="0.106208333333"/>
+    </inertial>
+    <!-- body -->
+    <collision name="collision_chassis">
+      <geometry>
+        <box size="0.5 0.3 0.07"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.5 0.3 0.07"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <!-- caster front -->
+    <collision name="caster_front_collision">
+      <origin rpy=" 0 0 0" xyz="0.35 0 -0.05"/>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+    </collision>
+    <visual name="caster_front_visual">
+      <origin rpy=" 0 0 0" xyz="0.2 0 -0.05"/>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+    </visual>
+  </link>
+
+   <link name="link_right_wheel">
+    <xacro:default_inertial mass="0.2"/>
+    <collision name="link_right_wheel_collision">
+      <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+      <xacro:wheel_geometry />
+    </collision>
+    <visual name="link_right_wheel_visual">
+      <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+      <xacro:wheel_geometry />
+      <material name="red"/>
+    </visual>
+  </link>
+  
+  <link name="link_right_wheel_back">
+    <xacro:default_inertial mass="0.2"/>
+    <collision name="link_right_wheel_collision_back">
+      <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+      <xacro:wheel_geometry />
+    </collision>
+    <visual name="link_right_wheel_visual_back">
+      <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+      <xacro:wheel_geometry />
+      <material name="red"/>
+    </visual>
+  </link>
+
+   <link name="link_left_wheel">
+    <xacro:default_inertial mass="0.2"/>
+    <collision name="link_left_wheel_collision">
+      <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+      <xacro:wheel_geometry />
+    </collision>
+    <visual name="link_left_wheel_visual">
+      <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+      <xacro:wheel_geometry />
+      <material name="red"/>
+    </visual>
+  </link>
+  
+     <link name="link_left_wheel_back">
+    <xacro:default_inertial mass="0.2"/>
+    <collision name="link_left_wheel_collision_back">
+      <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+      <xacro:wheel_geometry />
+    </collision>
+    <visual name="link_left_wheel_visual_back">
+      <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+      <xacro:wheel_geometry />
+      <material name="red"/>
+    </visual>
+  </link>
+
+
+  <joint name="joint_right_wheel" type="continuous">
+    <origin rpy="0 0 0" xyz="0.2 0.15 0"/>
+    <child link="link_right_wheel"/>
+    <parent link="link_chassis"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <limit effort="10000" velocity="1000"/>
+    <joint_properties damping="1.0" friction="1.0"/>
+  </joint>
+  
+    <joint name="joint_right_wheel_back" type="continuous">
+    <origin rpy="0 0 0" xyz="-0.2 0.15 0"/>
+    <child link="link_right_wheel_back"/>
+    <parent link="link_chassis"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <limit effort="10000" velocity="1000"/>
+    <joint_properties damping="1.0" friction="1.0"/>
+  </joint>
+  
+  
+  <joint name="joint_left_wheel" type="continuous">
+    <origin rpy="0 0 0" xyz="0.2 -0.15 0"/>
+    <child link="link_left_wheel"/>
+    <parent link="link_chassis"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <limit effort="10000" velocity="1000"/>
+    <joint_properties damping="1.0" friction="1.0"/>
+  </joint>
+  
+  <joint name="joint_left_wheel_back" type="continuous">
+    <origin rpy="0 0 0" xyz="-0.2 -0.15 0"/>
+    <child link="link_left_wheel_back"/>
+    <parent link="link_chassis"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <limit effort="10000" velocity="1000"/>
+    <joint_properties damping="1.0" friction="1.0"/>
+  </joint>
+  
+  <joint name="hokuyo_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="-0.05 -0.15 0" rpy="0 0 0"/>
+    <parent link="link_chassis"/>
+    <child link="hokuyo_link"/>
+  </joint>
+
+  <!-- Hokuyo Laser -->
+  <link name="hokuyo_link">
+    <collision>
+      <origin xyz="0 0 0.025" rpy="0 0 0"/>
+      <geometry>
+    <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+
+	    <visual>
+	      <origin xyz="0 0 0.025" rpy="0 0 0"/>
+	      <geometry>
+		<box size="0.05 0.05 0.05"/>
+	      </geometry>
+	      <material name="red">
+		<color rgba="1 0 0 1"/>
+	      </material>
+	    </visual>
+
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+
+
+</robot>
