@@ -9,6 +9,18 @@
 > Starting from this project:
 > - [CarmineD8/robot_urdf on GitHub](https://github.com/CarmineD8/robot_urdf)
 
+## Roadmap
+
+- [x] first structure of the code and the repo
+- [x] import already implemented macros from the original source file
+- [ ] create missing links and very first test in Gazebo
+- [ ] working on the chassis of the robot
+- [ ] test in Gazebo of the chassis only
+- [ ] working on the manipulator of the robot
+- [ ] test in Gazebo of the chassis alongside with the robot
+- [ ] end up the writing of the readme
+- [ ] final debug of the model (deploy)
+
 ## What is this?
 
 This ROS package contains a *xacro* description for a robot made up of

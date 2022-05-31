@@ -7,4 +7,70 @@
 </xacro:macro>
 -->
 
+
+<!-- Inertia Matrix of the cilinder --> 
+<xacro:macro name="cylinder_inertia" params="mass r l"> 
+	<inertia 
+		ixx="${mass*(3*r*r+l*l)/12}" iyy="${mass*(3*r*r+l*l)/12}" izz="${mass*(r*r)/2}"
+		ixy = "0" ixz = "0" iyz = "0" /> 
+</xacro:macro>
+
+
+<!-- link of the wheel of the chassis (use this alongside with joint_wheel) -->
+<xacro:macro name="link_wheel" params="name">
+	<link name="${name}">
+		<inertial>
+			<mass value="0.2"/>
+			
+			<origin 
+				rpy="0 1.5707 1.5707" 
+				xyz="0 0 0"/>
+			
+			<inertia 
+				ixx="0.000526666666667" iyy="0.000526666666667" izz="0.001" 
+				ixy="0" ixz="0" iyz="0"/>
+		</inertial>
+		
+		<collision name="link_right_wheel_collision">
+			<origin 
+				rpy="0 1.5707 1.5707" 
+				xyz="0 0 0"/>
+			
+			<geometry>
+				<cylinder length="0.04" radius="0.1"/>
+			</geometry>
+		</collision>
+		
+		<visual name="${name}_visual">
+			<origin 
+				rpy="0 1.5707 1.5707" 
+				xyz="0 0 0"/>
+				
+			<geometry>
+				<cylinder length="0.04" radius="0.1"/>
+			</geometry>
+		</visual>
+	</link>
+</xacro:macro>
+
+
+<!-- joint of the wheel on the chassis -->
+<xacro:macro name="joint_wheel" params="name child origin_xyz">
+	<joint name="${name}" type="continuous">
+		<parent link="base_link"/>
+		<child link="${child}"/>
+		
+		<origin 
+			rpy="0 0 0" 
+			xyz="${origin_xyz}"/>
+        
+        <axis 
+			rpy="0 0 0" 
+			xyz="0 1 0"/>
+        
+        <limit effort="10000" velocity="1000"/>
+        <joint_properties damping="1.0" friction="1.0"/>
+	</joint>
+</xacro:macro>
+
 </robot>
