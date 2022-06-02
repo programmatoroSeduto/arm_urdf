@@ -4,11 +4,14 @@
 <!-- import -->
 <xacro:include filename="macros.xacro"/>
 <xacro:include filename="params.xacro"/>
-<xacro:include filename="materials.xacro"/>
-<xacro:include filename="gazebo.gazebo"/>
-<xacro:include filename="transmission.xacro"/>
+<!-- <xacro:include filename="materials.xacro"/> -->
+<!-- <xacro:include filename="gazebo.gazebo"/> -->
+<!-- <xacro:include filename="transmission.xacro"/> -->
 
-<!-- dummy link -->
+<!-- dummy link (model root) -->
+<!-- see this post : 
+	https://answers.ros.org/question/192817/error-msg-the-root-link_base-has-an-inertia-specified-in-the-urdf-but-kdl/
+	--> 
 <link name="root_link">
 	<origin xyz="0 0 0" rpy="0 0 0"/>
 </link>
