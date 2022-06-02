@@ -1,8 +1,6 @@
 <?xml version="1.0" ?>
 <robot name="robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-
-
 <!-- chassis and front caster wheel --> 
 <link name="base_link">
 	
@@ -74,6 +72,39 @@
 
 
 
+<!-- place for laser sensors -->
+<link name="laser">
+	<inertial>
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<mass value="1" />
+		<xacro:cylinder_inertia mass="1" r="0.05" l="0.1" />
+	</inertial>
+
+	<visual>
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<geometry>
+			<cylinder radius="0.05" length="0.1"/>
+		</geometry>
+		<material name="white" />
+	</visual>
+
+	<collision>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<geometry>
+			<cylinder radius="0.05" length="0.1"/>
+		</geometry>
+	</collision>
+</link>
+
+<joint name="joint_laser" type="fixed">
+	<parent link="base_link"/>
+	<child link="laser"/>
+	<origin xyz="0.15 0 0.05" rpy="0 0 0"/>
+</joint>
+<!-- place for laser sensors -->
+
+
+
 <!-- Wheels -->
 <xacro:link_wheel name="link_right_wheel" />
 <xacro:joint_wheel name="joint_right_wheel"  
@@ -83,8 +114,5 @@
 <xacro:joint_wheel name="joint_left_wheel" 
 	child="link_left_wheel" parent="base_link" xx="-0.05" yy="-0.15" zz="0"  />
 <!-- Wheels -->
-
-
-
 
 </robot>
