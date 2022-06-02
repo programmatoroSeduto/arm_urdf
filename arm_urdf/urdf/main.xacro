@@ -4,7 +4,7 @@
 <!-- import -->
 <xacro:include filename="macros.xacro"/>
 <xacro:include filename="params.xacro"/>
-<!-- <xacro:include filename="materials.xacro"/> -->
+<xacro:include filename="materials.xacro"/>
 <!-- <xacro:include filename="gazebo.gazebo"/> -->
 <!-- <xacro:include filename="transmission.xacro"/> -->
 

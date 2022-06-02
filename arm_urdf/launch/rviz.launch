@@ -18,9 +18,13 @@
 		name="robot_state_publisher" pkg="robot_state_publisher" 
 		type="robot_state_publisher" /> 
 
+	<!-- <node 
+		name="rviz" pkg="rviz" type="rviz" 
+		args="-d $(find urdf_tutorial)/urdf.rviz" /> --> 
+	
 	<node 
 		name="rviz" pkg="rviz" type="rviz" 
-		args="-d $(find urdf_tutorial)/urdf.rviz" />
+		args="-d $(find arm_urdf)/config/rviz_config.rviz" />
 	
 	<node pkg="gazebo_ros" type="spawn_model" name="urdf_spawner"
 		respawn="false" output="screen"
