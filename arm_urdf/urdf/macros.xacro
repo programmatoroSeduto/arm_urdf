@@ -19,6 +19,10 @@
 <!-- link of the wheel of the chassis (use this alongside with joint_wheel) -->
 <xacro:macro name="link_wheel" params="name">
 	<link name="${name}">
+		<origin 
+			xyz="0 0 0"
+			rpy="0 0 0"/>
+		
 		<inertial>
 			<mass value="0.2"/>
 			
@@ -55,14 +59,14 @@
 
 
 <!-- joint of the wheel on the chassis -->
-<xacro:macro name="joint_wheel" params="name child origin_xyz">
+<xacro:macro name="joint_wheel" params="name child parent xx yy zz">
 	<joint name="${name}" type="continuous">
-		<parent link="base_link"/>
+		<parent link="${parent}"/>
 		<child link="${child}"/>
 		
 		<origin 
 			rpy="0 0 0" 
-			xyz="${origin_xyz}"/>
+			xyz="${xx} ${yy} ${zz}"/>
         
         <axis 
 			rpy="0 0 0" 

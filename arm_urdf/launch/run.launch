@@ -1,34 +1,44 @@
 <?xml version="1.0" ?>
 <launch>
 	
-	<arg name="model" default="$(find arm_urdf)/urdf/main.xacro" />
 	<arg name="robot_name" default="arm_robot" />
+	<arg name="model" default="$(find arm_urdf)/urdf/main.xacro" />
+	<arg name="x" default="0.0" />
+	<arg name="y" default="0.0" />
+	<arg name="z" default="0.5" />
+	<arg name="R" default="0.0" />
+	<arg name="P" default="0.0" />
+	<arg name="Y" default="0.0" />
+	<arg name="start_paused" default="false" />
 	
 	<include file="$(find gazebo_ros)/launch/empty_world.launch"> 
-		<arg name="paused" value="true"/>
+		<arg name="paused" value="$(arg start_paused)"/>
 	</include>
 	
-	<param name="robot_description" 
+	<param 
+		name="robot_description" 
 		command="$(find xacro)/xacro --inorder $(arg model)" />
+	
+	<node 
+		name="joint_state_publisher" pkg="joint_state_publisher" 
+		type="joint_state_publisher" />
+
+	<node 
+		name="robot_state_publisher" pkg="robot_state_publisher" 
+		type="robot_state_publisher" />
 	
 	<node 
 		name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" 
 		type="joint_state_publisher_gui" />
-
-	<node 
-		name="robot_state_publisher" pkg="robot_state_publisher" 
-		type="robot_state_publisher" /> 
-
-	<!-- <node 
-		name="rviz" pkg="rviz" type="rviz" 
-		args="-d $(find urdf_tutorial)/urdf.rviz" /> --> 
 	
 	<node 
-		name="rviz" pkg="rviz" type="rviz" 
-		args="-d $(find arm_urdf)/config/rviz_config.rviz" />
+		name="rviz" pkg="rviz" type="rviz" />
 	
-	<node pkg="gazebo_ros" type="spawn_model" name="urdf_spawner"
+	<node 
+		pkg="gazebo_ros" name="urdf_spawner" type="spawn_model"
 		respawn="false" output="screen"
-		args="-urdf -model $(arg robot_name) -param robot_description -z 0.05"/>
+		args="-urdf -model $(arg robot_name) -param robot_description
+			-x $(arg x) -y $(arg y) -z $(arg z)
+			-R $(arg R) -P $(arg P) -Y $(arg Y)" />
 	
 </launch>

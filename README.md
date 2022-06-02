@@ -14,7 +14,7 @@
 - [x] first structure of the code and the repo
 - [x] import already implemented macros from the original source file
 - [x] create missing links and very first test in Gazebo
-- [ ] working on the chassis of the robot
+- [ ] :sparkle: working on the chassis of the robot
 - [ ] test in Gazebo of the chassis only
 - [ ] working on the manipulator of the robot
 - [ ] test in Gazebo of the chassis alongside with the robot

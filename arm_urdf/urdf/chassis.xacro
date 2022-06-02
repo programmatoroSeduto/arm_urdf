@@ -74,6 +74,17 @@
 
 
 
-<!--  -->
+<!-- Wheels -->
+<xacro:link_wheel name="link_right_wheel" />
+<xacro:joint_wheel name="joint_right_wheel"  
+	child="link_right_wheel" parent="base_link" xx="-0.05" yy="0.15" zz="0"  />
+	
+<xacro:link_wheel name="link_left_wheel" />
+<xacro:joint_wheel name="joint_left_wheel" 
+	child="link_left_wheel" parent="base_link" xx="-0.05" yy="-0.15" zz="0"  />
+<!-- Wheels -->
+
+
+
 
 </robot>

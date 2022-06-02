@@ -17,19 +17,19 @@
 </link>
 
 <!-- robot chassis -->
+<xacro:include filename="chassis.xacro"></xacro:include>
 <joint name="root_joint" type="fixed">
 	<parent link="root_link"/>
 	<child  link="base_link"/>
 	<origin xyz="0 0 0" rpy="0 0 0"/>
 </joint>
-<xacro:include filename="chassis.xacro"></xacro:include>
 
 <!-- robot manipulator -->
+<xacro:include filename="arm.xacro"></xacro:include>
 <joint name="arm_base_to_base" type="fixed">
 	<parent link="base_link"/>
 	<child  link="arm_base_link"/>
 	<origin xyz="0 0 0" rpy="0 0 0"/>
 </joint>
-<xacro:include filename="arm.xacro"></xacro:include>
 
 </robot>
