@@ -4,13 +4,14 @@
 <xacro:property name="arm_01_len" value="0.25" />
 <xacro:property name="arm_02_len" value="0.5" />
 <xacro:property name="arm_03_len" value="0.125" />
+<xacro:property name="arm_04_len" value="0.25" />
+<xacro:property name="offset" value="0" />
 
 <!-- base link of the manipulator -->
 <link name="arm_base_link">
 	<origin 
 		xyz="0 0 0"
 		rpy="0 0 0" />
-	
 	
 	<inertial>
 		<mass value="0.1"/>
@@ -43,10 +44,10 @@
 <joint name="arm_joint_01" type="revolute">
 	<parent link="arm_base_link"/>
 	<child link="arm_link_01"/>
-	<origin rpy="0 0 0" xyz="0 0 ${arm_01_len/2}"/>
+	<origin rpy="0 0 0" xyz="0 0 ${0.05 + offset}"/>
 	
 	<axis xyz="0 0 1"/>
-	<limit effort="1000.0" lower="-3.14" upper="3.14" velocity="0.2"/>
+	<limit effort="1000.0" lower="-3.12" upper="3.139" velocity="5"/>
 </joint>
 
 <link name="arm_link_01">
@@ -56,19 +57,19 @@
 	
 	<inertial>
 		<mass value="0.025"/>
-		<origin xyz="0 0 0" rpy="0 0 0" />
+		<origin xyz="0 0 ${arm_01_len/2}" rpy="0 0 0" />
 		<inertia ixx="0.000010279" ixy="0" ixz="0" iyy="0.000010279" iyz="0" izz="0.000007225"/>
 	</inertial>
 	
 	<collision>
-		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<origin xyz="0 0 ${arm_01_len/2}" rpy="0 0 0"/>
 		<geometry>
 			<cylinder radius="0.04" length="${arm_01_len}"/>
 		</geometry>
 	</collision>
 	
 	<visual>
-		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<origin xyz="0 0 ${arm_01_len/2}" rpy="0 0 0"/>
 		<geometry>
 			<cylinder radius="0.04" length="${arm_01_len}"/>
 		</geometry>
@@ -83,9 +84,9 @@
 <joint name="arm_joint_02" type="revolute">
 	<parent link="arm_link_01"/>
 	<child link="arm_link_02"/>
-	<origin rpy="0 0 0" xyz="0 0 ${arm_02_len/2}"/>
-	<axis xyz="1 0 0"/>
-	<limit effort="1000.0" lower="-1.8" upper="1.8" velocity="0.2"/>
+	<origin rpy="0 0 0" xyz="0 0 ${arm_01_len + offset}"/>
+	<axis xyz="0 1 0"/>
+	<limit effort="1000.0" lower="-1.8" upper="1.8" velocity="5"/>
 </joint>
 
 <link name="arm_link_02">
@@ -95,7 +96,7 @@
 	
 	<inertial>
 		<mass value="0.025"/>
-		<origin xyz="0 0 0" rpy="0 0 0" />
+		<origin xyz="0 0 ${arm_02_len/2}" rpy="0 0 0" />
 		<inertia
 			ixx="0.000010279" iyy="0.000010279" izz="0.000007225" 
 			ixy="0" ixz="0" iyz="0"/>
@@ -121,13 +122,12 @@
 
 
 <!-- third link of the manipulator -->
-<!--
 <joint name="arm_joint_03" type="revolute">
 	<parent link="arm_link_02"/>
 	<child link="arm_link_03"/>
-	<origin rpy="0 0 0" xyz="0 0 ${arm_03_len/2}"/>
-	<axis xyz="1 0 0"/>
-	<limit effort="1000.0" lower="-1.8" upper="1.8" velocity="0.2"/>
+	<origin rpy="0 0 0" xyz="0 0 ${arm_02_len + offset}"/>
+	<axis xyz="0 1 0"/>
+	<limit effort="1000.0" lower="-1.8" upper="1.8" velocity="5"/>
 </joint>
 
 <link name="arm_link_03">
@@ -137,40 +137,38 @@
 	
 	<inertial>
 		<mass value="0.025"/>
-		<origin xyz="0 0 0" rpy="0 0 0" />
+		<origin xyz="0 0 ${arm_03_len/2}" rpy="0 0 0" />
 		<inertia
 			ixx="0.000010279" iyy="0.000010279" izz="0.000007225" 
 			ixy="0" ixz="0" iyz="0"/>
 	</inertial>
   	
 	<collision>
-		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<origin xyz="0 0 ${arm_03_len/2}" rpy="0 0 0"/>
 		<geometry>
 			<cylinder radius="0.04" length="${arm_03_len}"/>
 		</geometry>
 	</collision>
   	
 	<visual>
-		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<origin xyz="0 0 ${arm_03_len/2}" rpy="0 0 0"/>
 		<geometry>
 			<cylinder radius="0.04" length="${arm_03_len}"/>
 		</geometry>
 		<material name="red" />
 	</visual>
 </link>
--->
 <!-- third link of the manipulator -->
 
 
 
-<!-- last link of the manipulator -->
-<!--
+<!-- last link of the manipulator, base gripper -->
 <joint name="arm_joint_04" type="revolute">
-	<parent link="arm_link_02"/>
-	<child link="arm_link_03"/>
-	<origin rpy="0 0 0" xyz="0 0 ${arm_04_len/2}"/>
-	<axis xyz="1 0 0"/>
-	<limit effort="1000.0" lower="-1.8" upper="1.8" velocity="0.2"/>
+	<parent link="arm_link_03"/>
+	<child link="arm_link_04"/>
+	<origin rpy="0 0 0" xyz="0 0 ${arm_03_len + offset}"/>
+	<axis xyz="0 1 0"/>
+	<limit effort="1000.0" lower="-1.8" upper="1.8" velocity="5"/>
 </joint>
 
 <link name="arm_link_04">
@@ -180,27 +178,106 @@
 	
 	<inertial>
 		<mass value="0.025"/>
-		<origin xyz="0 0 0" rpy="0 0 0" />
+		<origin xyz="0 0 0.04" rpy="0 0 0" />
 		<inertia
 			ixx="0.000010279" iyy="0.000010279" izz="0.000007225" 
 			ixy="0" ixz="0" iyz="0"/>
 	</inertial>
   	
 	<collision>
-		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<origin xyz="0 0 0.04" rpy="0 0 0"/>
 		<geometry>
-			<cylinder radius="0.04" length="${arm_04_len}"/>
+			<box size="0.034 0.2 0.08"/>
 		</geometry>
 	</collision>
   	
 	<visual>
-		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<origin xyz="0 0 0.04" rpy="0 0 0"/>
 		<geometry>
-			<cylinder radius="0.04" length="${arm_04_len}"/>
+			<box size="0.034 0.2 0.08"/>
 		</geometry>
 		<material name="red" />
 	</visual>
 </link>
 -->
-<!-- last link of the manipulator -->
+<!-- last link of the manipulator, base gripper -->
+
+
+
+<!-- right gripper -->
+<joint name="right_grip_joint" type="prismatic">
+	<parent link="arm_link_04"/>
+	<child link="right_grip_link"/>
+	<origin rpy="0 0 0" xyz="${0.015 + 0.03} 0.05 0.04"/>
+	<axis xyz="0 1 0"/>
+	<limit effort="1000.0" lower="-0.04" upper="0.035" velocity="6.5"/>
+</joint>
+  
+<link name="right_grip_link">
+	<origin 
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	
+	<inertial>
+		<mass value="0.01"/>
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<inertia ixx="0.000010279" ixy="0" ixz="0" iyy="0.000010279" iyz="0" izz="0.000007225"/>
+	</inertial>
+	
+	<collision>
+		<origin rpy="0 0 0" xyz="0 0 0"/>
+		<geometry>
+			<box size="0.06 0.02 0.08"/>
+		</geometry>
+	</collision>
+  	
+  	<visual>
+		<origin rpy="0 0 0" xyz="0 0 0"/>
+		<geometry>
+			<box size="0.06 0.02 0.08"/>
+		</geometry>
+		<material name="white" />
+  	</visual>
+</link>
+<!-- right gripper -->
+
+
+
+<!-- left gripper -->
+<joint name="left_grip_joint" type="prismatic">
+	<parent link="arm_link_04"/>
+	<child link="left_grip_link"/>
+	<origin rpy="0 0 0" xyz="${0.015 + 0.03} -0.05 0.04"/>
+	<axis xyz="0 1 0"/>
+	<limit effort="1000.0" upper="0.04" lower="-0.035" velocity="6.5"/>
+</joint>
+
+<link name="left_grip_link">
+	<origin 
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	
+  	<inertial>
+		<mass value="0.01"/>
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<inertia ixx="0.000010279" ixy="0" ixz="0" iyy="0.000010279" iyz="0" izz="0.000007225"/>
+  	</inertial>
+  	
+  	<collision>
+		<origin rpy="0 0 0" xyz="0 0 0"/>
+		<geometry>
+			<box size="0.06 0.02 0.08"/>
+		</geometry>
+  	</collision>
+  	
+  	<visual>
+		<origin rpy="0 0 0" xyz="0 0 0"/>
+		<geometry>
+			<box size="0.06 0.02 0.08"/>
+		</geometry>
+		<material name="white" />
+  	</visual>
+</link>
+<!-- left gripper -->
+
 </robot>

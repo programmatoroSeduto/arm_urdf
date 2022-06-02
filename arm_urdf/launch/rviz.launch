@@ -32,11 +32,13 @@
 	<node 
 		name="rviz" pkg="rviz" type="rviz" />
 	
+	<!--
 	<node 
 		pkg="gazebo_ros" name="urdf_spawner" type="spawn_model"
 		respawn="false" output="screen"
 		args="-urdf -model $(arg robot_name) -param robot_description
 			-x $(arg x) -y $(arg y) -z $(arg z)
 			-R $(arg R) -P $(arg P) -Y $(arg Y)" />
+	-->
 
 </launch>

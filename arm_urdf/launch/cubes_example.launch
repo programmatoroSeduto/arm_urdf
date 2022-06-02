@@ -2,14 +2,14 @@
 <launch>
 	
 	<arg name="robot_name" default="arm_robot" />
-	<arg name="model" default="$(find arm_urdf)/urdf/main.xacro" />
+	<arg name="model" default="$(find arm_urdf)/urdf/cubes.xacro" />
 	<arg name="x" default="0.0" />
 	<arg name="y" default="0.0" />
 	<arg name="z" default="0.05" />
 	<arg name="R" default="0.0" />
 	<arg name="P" default="0.0" />
 	<arg name="Y" default="0.0" />
-	<arg name="start_paused" default="false" />
+	<arg name="start_paused" default="true" />
 	
 	<include file="$(find gazebo_ros)/launch/empty_world.launch"> 
 		<arg name="paused" value="$(arg start_paused)"/>

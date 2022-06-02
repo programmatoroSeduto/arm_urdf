@@ -16,11 +16,12 @@
 - [x] create missing links and very first test in Gazebo
 - [x] working on the chassis of the robot
 - [x] test in Gazebo of the chassis only
-- [ ] :sparkle: working on the manipulator of the robot
-- [ ] test in Gazebo of the chassis alongside with the robot
-- [ ] setting up Gazebo plugins
+- [x] working on the manipulator of the robot
+- [x] test in Gazebo of the chassis alongside with the robot
+- [ ] :sparkle: setting up Gazebo plugins
+- [ ] controllers!
 - [ ] end up the writing of the readme
-- [ ] final debug of the model (deploy)
+- [ ] deployment
 
 ## What is this?
 
@@ -88,7 +89,97 @@ Here are the steps for executing the script:
 
 # Structure of the model
 
---
+## A fundamental observation about the origin
+
+The first link is spawned with its center of mass as origin. To understand the position of the center for a second link, imagine that it appears by default with the origin located at the one of the jint linking the two links. If the origin of the joint is 0,0,0 then the center of the second link will be the same of the first one.
+
+The tag `\<origin>` always specifies not the coordinates of the origin of the second link, but instead the transform of the origin of the second link, which has a different meaning: it specifies the offset with respect to the previous joint origin. Let's suppose for example a structure like this:
+
+- cube A of height La
+- cube B of height Lb put on the cube A
+
+to model this situation, the correct code to use is the following:
+
+```xml
+<?xml version="1.0"?>
+
+<robot name="cubebot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:property name="La" value="0.5" />
+<xacro:property name="Lb" value="0.2" />
+
+<link name="A">
+	<origin xyz="0 0 0" rpy="0 0 0" /> 
+	
+	<inertial>
+		<mass value="0.1"/>
+  		<origin xyz="0 0 0" rpy="0 0 0" />
+  		<inertia 
+			ixx="0.0000416666667" iyy="0.0000416666667" izz="0.0000416666667" 
+			iyz="0" ixy="0" ixz="0" />
+	</inertial>
+	
+	<collision>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<geometry>
+			<box size="${La} ${La} ${La}" />
+		</geometry>
+  	</collision>
+	
+	<visual name="cubeA">
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<geometry>
+			<box size="${La} ${La} ${La}" />
+		</geometry>
+	</visual>
+</link>
+
+<joint name="joint_A_B" type="fixed">
+	<parent link="A" />
+	<child link="B" />
+	
+	<origin xyz="0 0 0" rpy="0 0 0" />
+</joint>
+
+<link name="B">
+	<origin xyz="0 0 0" rpy="0 0 0" />
+	
+	<inertial>
+		<mass value="0.1"/>
+  		<origin xyz="0 0 0" rpy="0 0 0" />
+  		<inertia 
+			ixx="0.0000416666667" iyy="0.0000416666667" izz="0.0000416666667" 
+			iyz="0" ixy="0" ixz="0" />
+	</inertial>
+	
+	<collision>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<geometry>
+			<box size="${Lb} ${Lb} ${Lb}" />
+		</geometry>
+  	</collision>
+	
+	<visual name="cubeB">
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<geometry>
+			<box size="${Lb} ${Lb} ${Lb}" />
+		</geometry>
+	</visual>
+</link>
+
+</robot>
+```
+
+Tests:
+
+- with each origin to zero, both the cubes have the same origin, i.e. the one of the world frame
+- let's set the `origin` of the first cube to `0 0 ${La/2}`: nothing happens
+- let's set also the other origins for the link A: **now the cube appears on the floor** but the cube B has the same origin of the world frame
+- let's delete the other origins except for the main one, inside the very first scope of the `link` tag A: the cubes return below the floor
+- let's set the origin of the joint to `0 0 ${La/2}`: now both A and B have the same origin (strange...)
+- let's change the origin of the joint to `0 0 ${La + Lb/2}`: now the cube B is on the cube A as we want!
+
+
 
 # TroubleShooting
 

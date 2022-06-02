@@ -46,6 +46,7 @@
 
 
 <!-- The ft_sensor plugin -->  
+<!--
 <gazebo>
     <plugin name="ft_sensor" filename="libgazebo_ros_ft_sensor.so">
         <updateRate>100.0</updateRate>
@@ -53,8 +54,9 @@
         <jointName>arm_joint_02</jointName>
     </plugin>
 </gazebo>
+-->
  
- 
+<!--
   <gazebo>
     <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
 	  <legacyMode>true</legacyMode>
@@ -76,9 +78,11 @@
       <wheelTorque>5</wheelTorque>
       <odometrySource>1</odometrySource>
       <publishTf>1</publishTf>
+      <publishOdomTf>true</publishOdomTf>
     </plugin>
   </gazebo>
-
+-->
+<!--
   <gazebo reference="laser">
     <sensor type="ray" name="head_hokuyo_sensor">
       <pose>0 0 0 0 0 0</pose>
@@ -105,22 +109,20 @@
         </noise>
       </ray>
       <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
-        <topicName>m2wr/laser/scan</topicName>
+        <topicName>arm_robot/laser/scan</topicName>
         <frameName>laser</frameName>
       </plugin>
     </sensor>
   </gazebo>
-
-
-
+  -->
+<!--
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-      <robotNamespace>m2wr</robotNamespace>
+      <robotNamespace>arm_robot</robotNamespace>
       <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
       <legacyModeNS>true</legacyModeNS>
     </plugin>
   </gazebo>
-
-
+-->
 </robot>
 
