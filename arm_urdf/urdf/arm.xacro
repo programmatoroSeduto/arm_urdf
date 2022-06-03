@@ -1,10 +1,14 @@
 <?xml version="1.0" ?>
 <robot name="robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
 	
-<xacro:property name="arm_01_len" value="0.25" />
-<xacro:property name="arm_02_len" value="0.5" />
-<xacro:property name="arm_03_len" value="0.125" />
+<xacro:property name="arm_01_len" value="0.2" />
+<xacro:property name="arm_01_mass" value="0.025" />
+<xacro:property name="arm_02_len" value="0.2" />
+<xacro:property name="arm_02_mass" value="0.025" />
+<xacro:property name="arm_03_len" value="0.2" />
+<xacro:property name="arm_03_mass" value="0.025" />
 <xacro:property name="arm_04_len" value="0.25" />
+<xacro:property name="arm_04_mass" value="0.025" />
 <xacro:property name="offset" value="0" />
 
 <!-- base link of the manipulator -->
@@ -56,9 +60,9 @@
 		rpy="0 0 0" />
 	
 	<inertial>
-		<mass value="0.025"/>
 		<origin xyz="0 0 ${arm_01_len/2}" rpy="0 0 0" />
-		<inertia ixx="0.000010279" ixy="0" ixz="0" iyy="0.000010279" iyz="0" izz="0.000007225"/>
+		<mass value="${arm_01_mass}"/>
+		<xacro:cylinder_inertia mass="${arm_01_mass}" r="0.04" l="${arm_01_len}" />
 	</inertial>
 	
 	<collision>
@@ -95,11 +99,9 @@
 		rpy="0 0 0" />
 	
 	<inertial>
-		<mass value="0.025"/>
 		<origin xyz="0 0 ${arm_02_len/2}" rpy="0 0 0" />
-		<inertia
-			ixx="0.000010279" iyy="0.000010279" izz="0.000007225" 
-			ixy="0" ixz="0" iyz="0"/>
+		<mass value="${arm_02_mass}"/>
+		<xacro:cylinder_inertia mass="${arm_02_mass}" r="0.04" l="${arm_02_len}" />
 	</inertial>
   	
 	<collision>
@@ -136,11 +138,9 @@
 		rpy="0 0 0" />
 	
 	<inertial>
-		<mass value="0.025"/>
 		<origin xyz="0 0 ${arm_03_len/2}" rpy="0 0 0" />
-		<inertia
-			ixx="0.000010279" iyy="0.000010279" izz="0.000007225" 
-			ixy="0" ixz="0" iyz="0"/>
+		<mass value="${arm_03_mass}"/>
+		<xacro:cylinder_inertia mass="${arm_03_mass}" r="0.04" l="${arm_03_len}" />
 	</inertial>
   	
 	<collision>
@@ -168,7 +168,7 @@
 	<child link="arm_link_04"/>
 	<origin rpy="0 0 0" xyz="0 0 ${arm_03_len + offset}"/>
 	<axis xyz="0 1 0"/>
-	<limit effort="1000.0" lower="-1.8" upper="1.8" velocity="5"/>
+	<limit effort="10000.0" lower="-1.8" upper="1.8" velocity="5"/>
 </joint>
 
 <link name="arm_link_04">
@@ -177,8 +177,8 @@
 		rpy="0 0 0" />
 	
 	<inertial>
-		<mass value="0.025"/>
 		<origin xyz="0 0 0.04" rpy="0 0 0" />
+		<mass value="${arm_04_mass}"/>
 		<inertia
 			ixx="0.000010279" iyy="0.000010279" izz="0.000007225" 
 			ixy="0" ixz="0" iyz="0"/>

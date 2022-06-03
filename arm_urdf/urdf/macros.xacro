@@ -9,11 +9,16 @@
 
 
 <!-- Inertia Matrix of the cilinder --> 
+<!--
+<xacro:cylinder_inertia mass="" r="" l="" />
+-->
 <xacro:macro name="cylinder_inertia" params="mass r l"> 
 	<inertia 
 		ixx="${mass*(3*r*r+l*l)/12}" iyy="${mass*(3*r*r+l*l)/12}" izz="${mass*(r*r)/2}"
 		ixy = "0" ixz = "0" iyz = "0" /> 
 </xacro:macro>
+<!-- Inertia Matrix of the cilinder --> 
+
 
 
 <!-- link of the wheel of the chassis (use this alongside with joint_wheel) -->
@@ -56,6 +61,8 @@
 		</visual>
 	</link>
 </xacro:macro>
+<!-- link of the wheel of the chassis (use this alongside with joint_wheel) -->
+
 
 
 <!-- joint of the wheel on the chassis -->
@@ -76,5 +83,6 @@
         <joint_properties damping="1.0" friction="1.0"/>
 	</joint>
 </xacro:macro>
+<!-- joint of the wheel on the chassis -->
 
 </robot>

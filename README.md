@@ -18,9 +18,10 @@
 - [x] test in Gazebo of the chassis only
 - [x] working on the manipulator of the robot
 - [x] test in Gazebo of the chassis alongside with the robot
-- [ ] :sparkle: setting up Gazebo plugins
-- [ ] controllers!
-- [ ] end up the writing of the readme
+- [x] setting up Gazebo plugins
+- [x] controllers!
+- [ ] :sparkle: end up the writing of the readme
+- [ ] physics tuning
 - [ ] deployment
 
 ## What is this?

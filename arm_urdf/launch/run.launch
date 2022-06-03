@@ -9,7 +9,7 @@
 	<arg name="R" default="0.0" />
 	<arg name="P" default="0.0" />
 	<arg name="Y" default="0.0" />
-	<arg name="start_paused" default="false" />
+	<arg name="start_paused" default="true" />
 	
 	<include file="$(find gazebo_ros)/launch/empty_world.launch"> 
 		<arg name="paused" value="$(arg start_paused)"/>
@@ -32,7 +32,8 @@
 		type="joint_state_publisher_gui" />
 	
 	<node 
-		name="rviz" pkg="rviz" type="rviz" required="true"/>
+		name="rviz" pkg="rviz" type="rviz" required="true"
+		args="-d $(find arm_urdf)/config/rviz_config.rviz"/>
 	
 	<node 
 		pkg="gazebo_ros" name="urdf_spawner" type="spawn_model"
@@ -40,5 +41,21 @@
 		args="-urdf -model $(arg robot_name) -param robot_description
 			-x $(arg x) -y $(arg y) -z $(arg z)
 			-R $(arg R) -P $(arg P) -Y $(arg Y)" />
+
+	<rosparam 
+		file="$(find robot_urdf)/config/motors_config.yaml" 
+		command="load" ns="/arm_robot" />
+
+	<node name="controller_spawner" pkg="controller_manager" 
+		type="spawner" output="screen" 
+		args="--namespace=/arm_robot
+			joint_state_controller
+			joint1_position_controller
+			joint2_position_controller
+			joint3_position_controller
+			joint4_position_controller
+			rgrip_position_controller
+			lgrip_position_controller
+			--shutdown-timeout 3" />
 	
 </launch>
