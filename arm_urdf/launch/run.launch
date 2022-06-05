@@ -10,6 +10,9 @@
 	<arg name="P" default="0.0" />
 	<arg name="Y" default="0.0" />
 	<arg name="start_paused" default="true" />
+	<arg name="out" default="screen" />
+	<!-- if not present, the RViz visual will glitch! -->
+	<param name="use_gui" value="True"/>
 	
 	<include file="$(find gazebo_ros)/launch/empty_world.launch"> 
 		<arg name="paused" value="$(arg start_paused)"/>
@@ -18,36 +21,39 @@
 	<param 
 		name="robot_description" 
 		command="$(find xacro)/xacro --inorder $(arg model)" />
-	
+	<!--
 	<node 
 		name="joint_state_publisher" pkg="joint_state_publisher" 
-		type="joint_state_publisher" />
-
+		type="joint_state_publisher" output="$(arg out)"/>
+	-->
+	
 	<node 
 		name="robot_state_publisher" pkg="robot_state_publisher" 
-		type="robot_state_publisher" />
+		type="robot_state_publisher" output="$(arg out)"/>
+	
 	
 	<node 
 		name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" 
-		type="joint_state_publisher_gui" />
+		type="joint_state_publisher_gui" output="$(arg out)"/>
 	
 	<node 
 		name="rviz" pkg="rviz" type="rviz" required="true"
-		args="-d $(find arm_urdf)/config/rviz_config.rviz"/>
+		args="-d $(find arm_urdf)/config/rviz_config.rviz" 
+		output="$(arg out)"/>
 	
 	<node 
 		pkg="gazebo_ros" name="urdf_spawner" type="spawn_model"
-		respawn="false" output="screen"
+		respawn="false" output="$(arg out)"
 		args="-urdf -model $(arg robot_name) -param robot_description
 			-x $(arg x) -y $(arg y) -z $(arg z)
 			-R $(arg R) -P $(arg P) -Y $(arg Y)" />
-
+	
 	<rosparam 
 		file="$(find robot_urdf)/config/motors_config.yaml" 
 		command="load" ns="/arm_robot" />
 
 	<node name="controller_spawner" pkg="controller_manager" 
-		type="spawner" output="screen" 
+		type="spawner" output="$(arg out)" 
 		args="--namespace=/arm_robot
 			joint_state_controller
 			joint1_position_controller

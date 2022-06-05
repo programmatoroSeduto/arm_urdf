@@ -6,22 +6,25 @@
 
 	<arg name="robot_name" default="arm_robot" />
 	<arg name="model" default="$(find arm_urdf)/urdf/main.xacro" />
+	<param name="use_gui" value="True"/>
 	
 	<param 
 		name="robot_description" 
 		command="$(find xacro)/xacro --inorder $(arg model)" />
 	
 	<node 
-		name="joint_state_publisher" pkg="joint_state_publisher" 
-		type="joint_state_publisher" />
-
-	<node 
-		name="robot_state_publisher" pkg="robot_state_publisher" 
-		type="robot_state_publisher" />
+		name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" 
+		type="joint_state_publisher_gui" output="screen"/>
 	
 	<node 
-		name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" 
-		type="joint_state_publisher_gui" />
+		name="robot_state_publisher" pkg="robot_state_publisher" 
+		type="robot_state_publisher" output="screen"/>
+		
+	<!--
+	<node 
+		name="joint_state_publisher" pkg="joint_state_publisher" 
+		type="joint_state_publisher" output="screen" />
+	-->
 	
 	<node 
 		name="rviz" pkg="rviz" type="rviz" required="true"
