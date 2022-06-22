@@ -1,0 +1,56 @@
+arm_controller:
+  type: effort_controllers/JointTrajectoryController
+  joints:
+    - arm_joint_01
+    - arm_joint_02
+    - arm_joint_03
+    - arm_joint_04
+  gains:
+    arm_joint_01:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+    arm_joint_02:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+    arm_joint_03:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+    arm_joint_04:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+arm_group_controller:
+  type: effort_controllers/JointTrajectoryController
+  joints:
+    - arm_joint_01
+    - arm_joint_02
+    - arm_joint_03
+    - arm_joint_04
+  gains:
+    arm_joint_01:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+    arm_joint_02:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+    arm_joint_03:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+    arm_joint_04:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
