@@ -4,10 +4,12 @@ echo "ATTENTION: remember to start the ROSmaster first!"
 
 set -e
 
-rm -rf --force robot.pdf
+rm -rf --force ./model/robot.pdf ./model/model.urdf
+# rm --force ./model/robot.urdf ./model/robot.gv
 # roscore &
-rosrun xacro xacro main.xacro -o model.urdf
-check_urdf model.urdf
-urdf_to_graphiz model.urdf
-rm --force robot.urdf robot.gv
-firefox ./robot.pdf
+rosrun xacro xacro main.xacro -o ./model/model.urdf
+check_urdf ./model/model.urdf
+urdf_to_graphiz ./model/model.urdf
+rm -rf ./robot.gv
+mv robot.pdf ./model/robot.pdf
+firefox ./model/robot.pdf

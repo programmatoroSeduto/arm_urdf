@@ -165,13 +165,13 @@
 <!-- last link of the manipulator, base gripper -->
 <joint name="arm_joint_04" type="revolute">
 	<parent link="arm_link_03"/>
-	<child link="arm_link_04"/>
+	<child link="cluedo_link"/>
 	<origin rpy="0 0 0" xyz="0 0 ${arm_03_len + offset}"/>
 	<axis xyz="0 1 0"/>
 	<limit effort="10000.0" lower="-1.8" upper="1.8" velocity="5"/>
 </joint>
 
-<link name="arm_link_04">
+<link name="cluedo_link">
 	<origin 
 		xyz="0 0 0"
 		rpy="0 0 0" />
@@ -206,7 +206,7 @@
 
 <!-- right gripper -->
 <joint name="right_grip_joint" type="prismatic">
-	<parent link="arm_link_04"/>
+	<parent link="cluedo_link"/>
 	<child link="right_grip_link"/>
 	<origin rpy="0 0 0" xyz="${0.015 + 0.03} 0.05 0.04"/>
 	<axis xyz="0 1 0"/>
@@ -245,7 +245,7 @@
 
 <!-- left gripper -->
 <joint name="left_grip_joint" type="prismatic">
-	<parent link="arm_link_04"/>
+	<parent link="cluedo_link"/>
 	<child link="left_grip_link"/>
 	<origin rpy="0 0 0" xyz="${0.015 + 0.03} -0.05 0.04"/>
 	<axis xyz="0 1 0"/>
