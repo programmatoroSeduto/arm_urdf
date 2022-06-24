@@ -6,7 +6,6 @@
 <xacro:include filename="params.xacro"/>
 <xacro:include filename="materials.xacro"/>
 <xacro:include filename="gazebo.gazebo"/>
-<xacro:include filename="transmission.xacro"/>
 
 <!-- dummy link (model root) -->
 <!-- see this post : 
@@ -32,5 +31,7 @@
 	<!-- origin : 0.5*(chassis height) + 0.5*(arm base link height) -->
 	<origin xyz="0 0 0.085" rpy="0 0 0"/>
 </joint>
+
+<xacro:include filename="transmission.xacro"/>
 
 </robot>
