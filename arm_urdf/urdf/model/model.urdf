@@ -148,9 +148,9 @@
   <!-- ros control plugin -->
   <gazebo>
     <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
-      <robotNamespace>arm_robot</robotNamespace>
-      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
-      <legacyModeNS>true</legacyModeNS>
+      <robotNamespace>/</robotNamespace>
+      <!-- <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType> -->
+      <!-- <legacyModeNS>true</legacyModeNS> -->
     </plugin>
   </gazebo>
   <!-- ros control plugin -->
@@ -504,12 +504,47 @@
     </visual>
   </link>
   <!-- left gripper -->
-  <joint name="arm_base_to_base" type="fixed">
+  <joint name="arm_base_to_base" type="revolute">
     <parent link="base_link"/>
     <child link="arm_base_link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000.0" lower="-1.8" upper="1.8" velocity="5"/>
     <!-- origin : 0.5*(chassis height) + 0.5*(arm base link height) -->
     <origin rpy="0 0 0" xyz="0 0 0.085"/>
   </joint>
+  <!-- CHASSIS HARDWARE INTERFACE -->
+  <transmission name="trans_joint_right_wheel">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_right_wheel">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="joint_right_wheel_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="trans_joint_left_wheel">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_left_wheel">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="joint_left_wheel_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <!-- CHASSIS HARDWARE INTERFACE -->
+  <!-- ARM TRANSMISSION -->
+  <transmission name="trans_arm_base_to_base">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="arm_base_to_base">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="arm_base_to_base_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
   <transmission name="arm_joint_01_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="arm_joint_01">
@@ -570,4 +605,5 @@
       <mechanicalInterface>1</mechanicalInterface>
     </actuator>
   </transmission>
+  <!-- ARM TRANSMISSION -->
 </robot>

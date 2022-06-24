@@ -1,6 +1,44 @@
 <?xml version="1.0" ?>
 <robot name="m2wr" xmlns:xacro="https://www.ros.org/wiki/xacro" >
 
+<!-- CHASSIS HARDWARE INTERFACE -->
+<transmission name="trans_joint_right_wheel">
+	<type>transmission_interface/SimpleTransmission</type>
+	<joint name="joint_right_wheel">
+		<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+	</joint>
+	<actuator name="joint_right_wheel_motor">
+		<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		<mechanicalReduction>1</mechanicalReduction>
+	</actuator>
+</transmission>
+
+<transmission name="trans_joint_left_wheel">
+	<type>transmission_interface/SimpleTransmission</type>
+	<joint name="joint_left_wheel">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+	</joint>
+	<actuator name="joint_left_wheel_motor">
+		<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		<mechanicalReduction>1</mechanicalReduction>
+	</actuator>
+</transmission>
+<!-- CHASSIS HARDWARE INTERFACE -->
+	
+	
+	
+<!-- ARM TRANSMISSION -->
+<transmission name="trans_arm_base_to_base">
+	<type>transmission_interface/SimpleTransmission</type>
+	<joint name="arm_base_to_base">
+		<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+	</joint>
+	<actuator name="arm_base_to_base_motor">
+		<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		<mechanicalReduction>1</mechanicalReduction>
+	</actuator>
+</transmission>
+
 <transmission name="arm_joint_01_trans">
 	<type>transmission_interface/SimpleTransmission</type>
 	<joint name="arm_joint_01">
@@ -66,5 +104,6 @@
 		<mechanicalInterface>1</mechanicalInterface>
 	</actuator>
 </transmission>
+<!-- ARM TRANSMISSION -->
 
 </robot>
