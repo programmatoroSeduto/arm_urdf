@@ -60,6 +60,7 @@
 
 
 <!-- differential drive controller plugin -->
+<!--
 <gazebo>
     <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
 		<legacyMode>true</legacyMode>
@@ -87,16 +88,34 @@
 		<publishWheelTF>false</publishWheelTF>
     </plugin>
 </gazebo>
+-->
+  <gazebo>
+    <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
+      <legacyMode>true</legacyMode>
+      <alwaysOn>true</alwaysOn>
+      <updateRate>1000</updateRate>
+      <leftJoint>joint_right_wheel</leftJoint>
+      <rightJoint>joint_left_wheel</rightJoint>
+      <wheelSeparation>0.2</wheelSeparation>
+      <wheelDiameter>0.2</wheelDiameter>
+      <torque>0.1</torque>
+      <commandTopic>cmd_vel</commandTopic>
+      <odometryTopic>odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+      <robotBaseFrame>base_link</robotBaseFrame>
+      <odometrySource>world</odometrySource>
+    </plugin>
+  </gazebo>
 <!-- differential drive controller plugin -->
 
 
 
 <!-- laser sensor plugin -->
 <gazebo reference="laser">
-	<sensor type="ray" name="head_hokuyo_sensor">
+	<sensor type="ray" name="laser">
 		<pose>0 0 0 0 0 0</pose>
 		<visualize>false</visualize>
-		<update_rate>20</update_rate>
+		<update_rate>40</update_rate>
 		<ray>
         <scan>
 			<horizontal>
@@ -117,8 +136,8 @@
 			<stddev>0.01</stddev>
         </noise>
 		</ray>
-		<plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
-			<topicName>arm_robot/laser/scan</topicName>
+		<plugin name="hokuyo_node" filename="libgazebo_ros_laser.so">
+			<topicName>/scan</topicName>
 			<frameName>laser</frameName>
 		</plugin>
 	</sensor>
@@ -132,7 +151,7 @@
 	<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
 		<robotNamespace>/</robotNamespace>
 		<!-- <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType> -->
-		<!-- <legacyModeNS>true</legacyModeNS> -->
+		<legacyModeNS>true</legacyModeNS>
 	</plugin>
 </gazebo>
 <!-- ros control plugin -->
